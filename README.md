@@ -1,15 +1,53 @@
-# 满足三级海况、水平能见度不大于500米的雾天和夜间使用要求 
+# ELEG 5491 Project Foggy maritime target detection 
 
 ## Dataset
 [Seadronessee](https://seadronessee.cs.uni-tuebingen.de/)
-- 原始 dataset: <code>data/train_formal</code>, <code>data/val_formal</code>
-- 增雾 dataset: <code>data/train_with_fog</code>, <code>data/val_with_fog</code>
-- 混合 dataset(以1:4比例组合训练集未增雾和增雾): <code>data/train_with_mixed</code>
-- 增雾脚本: <code>/data/foggy_data_make.py</code>
+- origin dataset: <code>data/train_formal</code>, <code>data/val_formal</code>
+- foggy dataset: <code>data/train_with_fog</code>, <code>data/val_with_fog</code>
+- mixed dataset(Combining the training set un-fogged and fogged in a 1:4 ratio): <code>data/train_with_mixed</code>
+- Image fogging script: <code>/data/foggy_data_make.py</code>
 
 [Visible-Thermal](https://arxiv.org/abs/2406.14482)
 - data/VTT
 
+The processed dataset should conform to the following structure
+```
+/data
+    |── train_formal/
+    |           |—— images
+    |           |—— labels
+    |── train_with_fog/
+    |           |—— images
+    |           |—— labels
+    |── val_formal/
+    |           |—— images
+    |           |—— labels
+    |── val_with_fog/
+    |           |—— images
+    |           |—— labels
+    |── train_with_mixed/
+    |           |—— images
+    |           |—— labels
+    |── VTT/
+    |     |—— train_00/
+    |     |        |—— images
+    |     |        |—— labels
+    |     |—— train_01/
+    |     |        |—— images
+    |     |        |—— labels
+    |     |—— test_00/
+    |     |        |—— images
+    |     |        |—— labels
+    |     |—— test_01/
+    |     |        |—— images
+    |     |        |—— labels
+    |—— foggy_data_make.py
+    |—— foggy.yaml
+    |—— foggy_fuse.yaml
+    |—— multimodal.yaml
+    
+
+```
 ## Training
 To train Image-Adaptive-YOLO
 ```
