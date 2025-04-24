@@ -1,0 +1,11 @@
+train_rgb: ./data/VTT/train_00
+val_rgb: ./data/VTT/test_00
+
+train_ir: ./data/VTT/train_01
+val_ir: ./data/VTT/test_01
+
+# number of classes
+nc: 7
+
+# class names
+names: [ 'ship','car','cyclist','pedestrian','bus','drone','plane']

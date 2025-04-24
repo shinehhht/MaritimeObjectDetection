@@ -1,0 +1,9 @@
+train_fog: ./data/train_with_fog
+train_origin: ./data/train_formal
+val: ./data/val_with_fog
+
+# 类别数量
+nc: 6
+
+# 类别名称
+names: ['ignored', 'swimmer', 'boat', 'jetski', 'life_saving_appliances', 'buoy']
