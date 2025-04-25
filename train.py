@@ -416,7 +416,6 @@ def train(hyp, opt, device, tb_writer=None):
     torch.save(model.state_dict(), wdir / 'init_hybrid.pt')
     
     for epoch in range(start_epoch, epochs):  # epoch ------------------------------------------------------------------
-        print(f"epoch ",epoch)
         model.train()
 
         # Update image weights (optional)
@@ -449,7 +448,7 @@ def train(hyp, opt, device, tb_writer=None):
             #print(batch_id)
             ni = batch_id + nb * epoch  # number integrated batches (since train start)
             imgs = imgs.to(device, non_blocking=True).float() / 255.0  # uint8 to float32, 0-255 to 0.0-1.0
-            print("image shape",imgs.shape)
+            # print("image shape",imgs.shape)
             # Warmup
             if ni <= nw:
                 xi = [0, nw]  # x interp
@@ -775,11 +774,12 @@ if __name__ == '__main__':
     # Set DDP variables
     opt.world_size = int(os.environ['WORLD_SIZE']) if 'WORLD_SIZE' in os.environ else 1
     opt.global_rank = int(os.environ['RANK']) if 'RANK' in os.environ else -1
+    opt.local_rank = int(os.environ['LOCAL_RANK']) if 'LOCAL_RANK' in os.environ else -1
+
     set_logging(opt.global_rank)
     #if opt.global_rank in [-1, 0]:
     #    check_git_status()
     #    check_requirements()
-
     # Resume
     wandb_run = check_wandb_resume(opt)
     if opt.resume and not wandb_run:  # resume an interrupted run
@@ -808,6 +808,7 @@ if __name__ == '__main__':
         dist.init_process_group(backend='nccl', init_method='env://')  # distributed backend
         assert opt.batch_size % opt.world_size == 0, '--batch-size must be multiple of CUDA device count'
         opt.batch_size = opt.total_batch_size // opt.world_size
+        
 
     # Hyperparameters
     with open(opt.hyp) as f:

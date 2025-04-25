@@ -857,11 +857,11 @@ def parse_model(d, ch):  # model_dict, input_channels(3)
         elif m is GPT:
             c2 = ch[f[0]]
             args = [c2,dpr[tr_layer_count:tr_layer_count+8]]
-            print(f"dop path possibility is {args[1]}")
+            # print(f"dop path possibility is {args[1]}")
             tr_layer_count += 8
         elif m is SwinFusion:
             c2 = ch[f[0]]
-            print(f"feature size {args[1]}")
+            # print(f"feature size {args[1]}")
             args = [args[1],c2]
         elif m is nn.BatchNorm2d:
             args = [ch[f]]
